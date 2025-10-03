@@ -1,19 +1,28 @@
 <?php
   include_once "../models/LoginModel.php";
 
-  if (isset($_POST["username"]) && isset($_POST["password"])) {
-    $username = htmlentities(addslashes($_POST["username"]));
-    $password = htmlentities(addslashes($_POST["password"]));
+  class LoginController {
+    private string $username;
+    private string $password;
 
-    $login_model = new LoginModel($username, $password);
-    $result = $login_model->get_data();
-
-    if ($result != 0) {
-      echo "Login successful";
-    } else {
-      header("Location: ../public");
+    public function __construct ($username, $password) {
+      $this->username = $username;
+      $this->password = $password;
     }
-    
-  }
 
+    public function login () {
+      $login_model = new LoginModel($this->username, $this->password);
+      $result = $login_model->get_data();
+      
+      if ($result == 0) {
+        header("Location: ../public");
+      } else {
+        session_start();
+        
+        $_SESSION["username"] = $this->username;
+
+        header("Location: ../views/home.php");
+      }
+    }
+  }
 ?>
