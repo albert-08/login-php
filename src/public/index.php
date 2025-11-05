@@ -9,7 +9,7 @@
 </head>
 <body>
   <h1>Login</h1>
-  <form action="/login-php/src/libs/login.php" method="POST">
+  <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" class="form-control" id="username" name="username" required>
@@ -18,6 +18,13 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" name="password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary" name="login_button">Login</button>
+  </form>
+  <div class="alert alert-success" role="alert">
+    Usuario Valido!
+  </div>
+  <div class="alert alert-danger" role="alert">
+    Nombre de usuario o contraseña incorrecto!
+  </div>
 </body>
 </html>
